@@ -1,7 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadSubreddits } from '../../api/reddit';
+import { getSubreddits } from '../../api/reddit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-
+export const loadSubreddits = createAsyncThunk(
+  'subreddits/loadSubreddits',
+  async () => {
+    const subRedditsData = await getSubreddits()
+    return subRedditsData
+  }
+);
 
 export const subredditsSlice = createSlice({
     name: 'subreddits',
@@ -27,14 +34,10 @@ export const subredditsSlice = createSlice({
         })
     },
   });
-  
-  export const selectSubreddits = (state) => state.subreddits.subreddits;
-  
-  export const isLoading = (state) => state.subreddits.isLoading;
-  
+
   export default subredditsSlice.reducer;
-
-
+  export const isLoading = (state) => state.subreddits.isLoading;
+  export const selectSubreddits = (state) => state.subreddits.subreddits;
 
 
 
