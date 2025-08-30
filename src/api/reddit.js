@@ -1,3 +1,5 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
 export const API_ROOT = 'https://www.reddit.com';
 
 export const getSubredditPosts = async (subreddit) => {
@@ -7,13 +9,20 @@ export const getSubredditPosts = async (subreddit) => {
     return json.data.children.map((post) => post.data);
   };
 
+  export const loadSubreddits = createAsyncThunk(
+    'subreddits/loadSubreddits',
+    async () => {
+      const data = await fetch(`${API_ROOT}/subreddits.json`);
+      const json = await data.json();
+      return json.data.children.map((subreddit) => subreddit.data);
+    }
+  );
+// export const getSubreddits = async () => {
+//     const response = await fetch(`${API_ROOT}/subreddits.json`)
+//     const json = await response.json()
 
-export const getSubreddits = async () => {
-    const response = await fetch(`${API_ROOT}/subreddits.json`)
-    const json = await response.json()
-
-    return json.data.children.map((subreddit) => subreddit.data)
-}
+//     return json.data.children.map((subreddit) => subreddit.data)
+// }
 
 export const getPostComments = async (permalink) => {
     const response = await fetch(`${API_ROOT}${permalink}.json`);

@@ -1,14 +1,7 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { loadSubreddits } from '../../api/reddit';
 
 
-export const loadSubreddits = createAsyncThunk(
-    'subreddits/loadSubreddits',
-    async () => {
-      const data = await fetch('https://www.reddit.com/subreddits.json');
-      const json = await data.json();
-      return json;
-    }
-  );
 
 export const subredditsSlice = createSlice({
     name: 'subreddits',
@@ -25,12 +18,12 @@ export const subredditsSlice = createSlice({
         })
         .addCase(loadSubreddits.fulfilled, (state, action) => {
           state.isLoading = false;
-          state.articles = action.payload;
+          state.subreddits = action.payload;
         })
         .addCase(loadSubreddits.rejected, (state, action) => {
           state.isLoading = false;
           state.error = true;
-          state.articles = [];
+          state.subreddits = [];
         })
     },
   });
