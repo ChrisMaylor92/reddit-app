@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getSubreddits } from '../../api/reddit';
+import { getSubreddits } from '../api/reddit';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const loadSubreddits = createAsyncThunk(
@@ -9,14 +9,13 @@ export const loadSubreddits = createAsyncThunk(
     return subRedditsData
   }
 );
-
 export const subredditsSlice = createSlice({
     name: 'subreddits',
     initialState: {
         subreddits: [],
         error: false,
         isLoading: false,
-      },
+    },
     extraReducers: (builder) => {
       builder
         .addCase(loadSubreddits.pending, (state) => {

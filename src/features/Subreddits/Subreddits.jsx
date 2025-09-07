@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import {
     selectSubreddits,
     isLoading,
     loadSubreddits
-  } from './subredditslice';
+  } from '../../store/subredditslice';
 
 export const Subreddits = () => {
     const dispatch = useDispatch();
@@ -20,7 +19,7 @@ export const Subreddits = () => {
     if (isLoadingSubreddits) {
       return <div>Loading</div>;
     }
-    // console.log(subreddits, '....')
+    console.log(subreddits, '....')
     
 
     return (
